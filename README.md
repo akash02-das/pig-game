@@ -9,6 +9,7 @@ This is a simple little dice game using Vanilla Javascript.
 - The buttonHold() uses to add CURRENT score to GLOBAL score
 - The nextPlayer() is used to next player's turn
 - players can set the winning score
+- Players can see the game rules
 - Used Ion Icons for some icons
 
 # Game Rules
