@@ -98,7 +98,7 @@ function buttonHold() {
       scores[activePlayer];
 
     // Check if player won the game
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= 100) {
       document.querySelector("#name-" + activePlayer).innerHTML =
         'Winner! <i class="ion-trophy ion-lg"></i>';
       dice.style.display = "none";
