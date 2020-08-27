@@ -13,6 +13,7 @@
 
 // ############## DOM Selector ################
 const btnRoll = document.querySelector('.btn-roll');
+const btnHold = document.querySelector('.btn-hold');
 const dice = document.querySelector('.dice');
 const player_0_panel = document.querySelector('.player-0-panel');
 const player_1_panel = document.querySelector('.player-1-panel');
@@ -46,19 +47,48 @@ function rollDice() {
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
         // Next player
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScore = 0;
-
-        current0.textContent = '0';
-        current1.textContent = '0';
-
-        player_0_panel.classList.toggle('active');
-        player_1_panel.classList.toggle('active');
-
-        dice.style.display = 'none';
+        nextPlayer();
     }
+}
+
+// Button Hold function
+function buttonHold() {
+    // Add CURRENT score to GLOBAL score
+    scores[activePlayer] += roundScore;
+
+    // Update the UI
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+    // Check if player won the game
+    if (scores[activePlayer] >= 20) {
+        document.querySelector('#name-' + activePlayer).textContent = "Winner!";
+        dice.style.display = 'none';
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+    } else {
+        // Next player
+        nextPlayer();
+    }
+
+
+}
+
+// Next Player function
+function nextPlayer() {
+    // Next player
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    roundScore = 0;
+
+    current0.textContent = '0';
+    current1.textContent = '0';
+
+    player_0_panel.classList.toggle('active');
+    player_1_panel.classList.toggle('active');
+
+    dice.style.display = 'none';
 }
 
 
 // ############### Event listener #################
 btnRoll.addEventListener('click', rollDice);
+btnHold.addEventListener('click', buttonHold);
