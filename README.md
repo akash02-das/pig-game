@@ -8,6 +8,7 @@ This is a simple little dice game using Vanilla Javascript.
 - The rollDice() uses to rolls random dices
 - The buttonHold() uses to add CURRENT score to GLOBAL score
 - The nextPlayer() is used to next player's turn
+- Used Ion Icons for some icons
 
 # Game Rules
 
