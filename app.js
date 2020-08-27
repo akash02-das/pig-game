@@ -12,24 +12,48 @@
 */
 
 // ############## DOM Selector ################
+const btnNew = document.querySelector('.btn-new');
 const btnRoll = document.querySelector('.btn-roll');
 const btnHold = document.querySelector('.btn-hold');
+
 const dice = document.querySelector('.dice');
 const player_0_panel = document.querySelector('.player-0-panel');
 const player_1_panel = document.querySelector('.player-1-panel');
 
+const name0 = document.getElementById('name-0');
+const name1 = document.getElementById('name-1');
 const score0 = document.getElementById('score-0');
 const current0 = document.getElementById('current-0');
 const score1 = document.getElementById('score-1');
 const current1 = document.getElementById('current-1');
 
-let scores = [0, 0];
-let roundScore = 0;
-let activePlayer = 0;
-
-dice.style.display = 'none';
+init();
 
 // ################## FUNCTIONS ####################
+// Init function
+function init() {
+    // Initialize the variables
+    scores = [0, 0];
+    roundScore = 0;
+    activePlayer = 0;
+
+    dice.style.display = 'none';
+
+    score0.textContent = '0';
+    current0.textContent = '0';
+    score1.textContent = '0';
+    current1.textContent = '0';
+
+    name0.textContent = 'Player 1';
+    name1.textContent = 'Player 2';
+
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.add('active');
+}
+
 // Roll Dice function
 function rollDice() {
     // Random dice
@@ -88,7 +112,7 @@ function nextPlayer() {
     dice.style.display = 'none';
 }
 
-
 // ############### Event listener #################
+btnNew.addEventListener('click', init);
 btnRoll.addEventListener('click', rollDice);
 btnHold.addEventListener('click', buttonHold);
