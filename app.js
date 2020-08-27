@@ -17,6 +17,7 @@ const btnRoll = document.querySelector(".btn-roll");
 const btnHold = document.querySelector(".btn-hold");
 
 const dice = document.querySelector(".dice");
+const inputFinalScore = document.querySelector(".final-score");
 const player_0_panel = document.querySelector(".player-0-panel");
 const player_1_panel = document.querySelector(".player-1-panel");
 
@@ -28,7 +29,7 @@ const score1 = document.getElementById("score-1");
 const current1 = document.getElementById("current-1");
 
 // Global Variable
-let scores, roundScore, activePlayer, gamePlaying, lastDice;
+let scores, roundScore, activePlayer, gamePlaying, lastDice, winningScore;
 
 init();
 
@@ -106,8 +107,18 @@ function buttonHold() {
     document.querySelector("#score-" + activePlayer).textContent =
       scores[activePlayer];
 
+    // Input field
+    let input = inputFinalScore.value;
+    // Undefined, 0, null or "" are COERCED to false
+    // Anything else is COERCED to true
+    if (input) {
+      winningScore = input;
+    } else {
+      winningScore = 100;
+    }
+
     // Check if player won the game
-    if (scores[activePlayer] >= 100) {
+    if (scores[activePlayer] >= winningScore) {
       document.querySelector("#name-" + activePlayer).innerHTML =
         'Winner! <i class="ion-trophy ion-lg"></i>';
       dice.style.display = "none";

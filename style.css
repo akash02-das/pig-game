@@ -45,8 +45,24 @@ body {
 .player-1-panel {
     width: 50%;
     float: left;
-    height: 600px;
+    height: 550px;
     padding: 100px;
+}
+
+.final-score {
+    position: absolute;
+    left: 85%;
+    transform: translateX(-50%);
+    top: 30px;
+    color: #555;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    width: 170px;
+}
+
+.final-score:focus {
+    outline: 0;
 }
 
 /**********************************************
