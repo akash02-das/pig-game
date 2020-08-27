@@ -12,107 +12,130 @@
 */
 
 // ############## DOM Selector ################
-const btnNew = document.querySelector('.btn-new');
-const btnRoll = document.querySelector('.btn-roll');
-const btnHold = document.querySelector('.btn-hold');
+const btnNew = document.querySelector(".btn-new");
+const btnRoll = document.querySelector(".btn-roll");
+const btnHold = document.querySelector(".btn-hold");
 
-const dice = document.querySelector('.dice');
-const player_0_panel = document.querySelector('.player-0-panel');
-const player_1_panel = document.querySelector('.player-1-panel');
+const dice = document.querySelector(".dice");
+const player_0_panel = document.querySelector(".player-0-panel");
+const player_1_panel = document.querySelector(".player-1-panel");
 
-const name0 = document.getElementById('name-0');
-const name1 = document.getElementById('name-1');
-const score0 = document.getElementById('score-0');
-const current0 = document.getElementById('current-0');
-const score1 = document.getElementById('score-1');
-const current1 = document.getElementById('current-1');
+const name0 = document.getElementById("name-0");
+const name1 = document.getElementById("name-1");
+const score0 = document.getElementById("score-0");
+const current0 = document.getElementById("current-0");
+const score1 = document.getElementById("score-1");
+const current1 = document.getElementById("current-1");
+
+// Global Variable
+let scores, roundScore, activePlayer, gamePlaying;
 
 init();
 
 // ################## FUNCTIONS ####################
 // Init function
 function init() {
-    // Initialize the variables
-    scores = [0, 0];
-    roundScore = 0;
-    activePlayer = 0;
+  // Initialize the variables
+  scores = [0, 0];
+  roundScore = 0;
+  activePlayer = 0;
+  gamePlaying = true;
 
-    dice.style.display = 'none';
+  dice.style.display = "none";
+  btnHold.style.display = "none";
 
-    score0.textContent = '0';
-    current0.textContent = '0';
-    score1.textContent = '0';
-    current1.textContent = '0';
+  score0.textContent = "0";
+  current0.textContent = "0";
+  score1.textContent = "0";
+  current1.textContent = "0";
 
-    name0.textContent = 'Player 1';
-    name1.textContent = 'Player 2';
+  name0.textContent = "Player 1";
+  name1.textContent = "Player 2";
 
-    document.querySelector('.player-0-panel').classList.remove('winner');
-    document.querySelector('.player-1-panel').classList.remove('winner');
-    document.querySelector('.player-0-panel').classList.remove('active');
-    document.querySelector('.player-1-panel').classList.remove('active');
-    document.querySelector('.player-0-panel').classList.add('active');
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+  document.querySelector(".player-0-panel").classList.add("active");
 }
 
 // Roll Dice function
 function rollDice() {
+  if (gamePlaying) {
     // Random dice
     let randomDice = Math.floor(Math.random() * 6) + 1;
 
     // Display the result
-    dice.style.display = 'block';
-    dice.src = 'dice-' + randomDice + '.png';
+    dice.style.display = "block";
+    dice.src = "dice-" + randomDice + ".png";
 
     // Update the round score IF the rolled number was NOT a 1
     if (randomDice !== 1) {
-        // Add score
-        roundScore += randomDice;
+      // Add score
+      roundScore += randomDice;
 
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+      document.querySelector(
+        "#current-" + activePlayer
+      ).textContent = roundScore;
     } else {
-        // Next player
-        nextPlayer();
+      // Next player
+      nextPlayer();
+
+      btnHold.style.display = "none";
     }
+    btnHold.style.display = "block";
+  }
 }
 
 // Button Hold function
 function buttonHold() {
+  if (gamePlaying) {
     // Add CURRENT score to GLOBAL score
     scores[activePlayer] += roundScore;
 
     // Update the UI
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+    document.querySelector("#score-" + activePlayer).textContent =
+      scores[activePlayer];
 
     // Check if player won the game
-    if (scores[activePlayer] >= 20) {
-        document.querySelector('#name-' + activePlayer).textContent = "Winner!";
-        dice.style.display = 'none';
-        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
-        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+    if (scores[activePlayer] >= 10) {
+      document.querySelector("#name-" + activePlayer).innerHTML =
+        'Winner! <i class="ion-trophy ion-lg"></i>';
+      dice.style.display = "none";
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.remove("active");
+
+      gamePlaying = false;
     } else {
-        // Next player
-        nextPlayer();
+      // Next player
+      nextPlayer();
     }
-
-
+  }
 }
 
 // Next Player function
 function nextPlayer() {
-    // Next player
-    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-    roundScore = 0;
+  // Next player
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  roundScore = 0;
 
-    current0.textContent = '0';
-    current1.textContent = '0';
+  current0.textContent = "0";
+  current1.textContent = "0";
 
-    player_0_panel.classList.toggle('active');
-    player_1_panel.classList.toggle('active');
+  player_0_panel.classList.toggle("active");
+  player_1_panel.classList.toggle("active");
 
-    dice.style.display = 'none';
+  setTimeout(() => {
+    dice.style.display = "none";
+    btnHold.style.display = "none";
+  }, 600);
 }
 
 // ############### Event listener #################
-btnNew.addEventListener('click', init);
-btnRoll.addEventListener('click', rollDice);
-btnHold.addEventListener('click', buttonHold);
+btnNew.addEventListener("click", init);
+btnRoll.addEventListener("click", rollDice);
+btnHold.addEventListener("click", buttonHold);

@@ -2,6 +2,10 @@
 *** GENERAL
 **********************************************/
 
+:root {
+    --color: #d9534f;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -63,8 +67,8 @@ body {
 .player-score {
     text-align: center;
     font-size: 80px;
-    font-weight: 100;
-    color: #EB4D4D;
+    font-weight: 200;
+    color: var(--color);
     margin-bottom: 130px;
 }
 
@@ -80,18 +84,19 @@ body {
     content: "\2022";
     font-size: 47px;
     position: absolute;
-    color: #EB4D4D;
+    color: var(--color);
     top: -7px;
     right: 10px;
 }
 
 .player-current-box {
-    background-color: #EB4D4D;
+    background-color: var(--color);
     color: #fff;
-    width: 40%;
+    width: 50%;
     margin: 0 auto;
     padding: 12px;
     text-align: center;
+    border-radius: 5px;
 }
 
 .player-current-label {
@@ -133,7 +138,7 @@ button:focus {
 }
 
 i {
-    color: #EB4D4D;
+    color: var(--color);
     display: inline-block;
     margin-right: 15px;
     font-size: 32px;
@@ -171,5 +176,9 @@ i {
 
 .winner .player-name {
     font-weight: 300;
-    color: #EB4D4D;
+    color: var(--color);
+}
+
+.ion-lg {
+    font-size: 3rem;
 }
