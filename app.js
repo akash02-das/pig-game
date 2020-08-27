@@ -14,15 +14,13 @@
 // ############## DOM Selector ################
 const btnRoll = document.querySelector('.btn-roll');
 const dice = document.querySelector('.dice');
+const player_0_panel = document.querySelector('.player-0-panel');
+const player_1_panel = document.querySelector('.player-1-panel');
+
 const score0 = document.getElementById('score-0');
 const current0 = document.getElementById('current-0');
 const score1 = document.getElementById('score-1');
 const current1 = document.getElementById('current-1');
-
-score0.textContent = '0';
-current0.textContent = '0';
-score1.textContent = '0';
-current1.textContent = '0';
 
 let scores = [0, 0];
 let roundScore = 0;
@@ -39,6 +37,26 @@ function rollDice() {
     // Display the result
     dice.style.display = 'block';
     dice.src = 'dice-' + randomDice + '.png';
+
+    // Update the round score IF the rolled number was NOT a 1
+    if (randomDice !== 1) {
+        // Add score
+        roundScore += randomDice;
+
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+    } else {
+        // Next player
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        roundScore = 0;
+
+        current0.textContent = '0';
+        current1.textContent = '0';
+
+        player_0_panel.classList.toggle('active');
+        player_1_panel.classList.toggle('active');
+
+        dice.style.display = 'none';
+    }
 }
 
 
