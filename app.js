@@ -28,7 +28,7 @@ const score1 = document.getElementById("score-1");
 const current1 = document.getElementById("current-1");
 
 // Global Variable
-let scores, roundScore, activePlayer, gamePlaying;
+let scores, roundScore, activePlayer, gamePlaying, lastDice;
 
 init();
 
@@ -70,7 +70,14 @@ function rollDice() {
     dice.src = "dice-" + randomDice + ".png";
 
     // Update the round score IF the rolled number was NOT a 1
-    if (randomDice !== 1) {
+    if (randomDice === 6 && lastDice === 6) {
+      // Player losses score
+      scores[activePlayer] = 0;
+      // Update the UI
+      document.querySelector("#score-" + activePlayer).textContent = '0';
+      // Next player
+      nextPlayer();
+    } else if (randomDice !== 1) {
       // Add score
       roundScore += randomDice;
 
@@ -84,6 +91,8 @@ function rollDice() {
       btnHold.style.display = "none";
     }
     btnHold.style.display = "block";
+
+    lastDice = randomDice;
   }
 }
 
